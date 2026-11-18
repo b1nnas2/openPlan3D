@@ -215,6 +215,15 @@
     exportOpen = false;
   }
 
+  // 룸핏(RoomFit) 추가: 지금 평면도를 룸핏 앱(Unity WebView)으로 보내기
+  function onApplyToRoomFit() {
+    const p = get(currentProject);
+    if (!p) return;
+    const w = window as unknown as { Unity?: { call: (msg: string) => void } };
+    if (w.Unity) w.Unity.call('roomfit:' + JSON.stringify(p));
+    else alert('룸핏 앱 안에서 열었을 때만 쓸 수 있어요.');
+  }
+
   async function onExportPackage() {
     const project = get(currentProject);
     exportOpen = false; packageError = null;
@@ -806,3 +815,11 @@
 {#if assistantShareProject}<AssistantShareDialog project={assistantShareProject} onclose={() => assistantShareProject = null} />{/if}
 
 <ExportNotice />
+
+
+<!-- 룸핏(RoomFit) 추가: 지금 평면도를 룸핏 3D로 보내는 버튼 -->
+<button
+  class="fixed bottom-20 right-4 z-50 px-5 py-3 rounded-full bg-amber-700 text-white text-base font-bold shadow-lg hover:bg-amber-800"
+  onclick={onApplyToRoomFit}>
+  룸핏에 적용
+</button>
