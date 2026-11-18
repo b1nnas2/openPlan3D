@@ -576,8 +576,7 @@
     >2D</button>
     <button
       onclick={() => setMode('3d')}
-      class="px-3 max-xl:px-2 py-1 text-xs font-semibold rounded-full transition-colors {mode === '3d' ? 'bg-white text-slate-800' : 'text-white/80 hover:text-white'}"
-    >3D</button>
+      class="hidden px-3 max-xl:px-2 py-1 text-xs font-semibold rounded-full transition-colors {mode === '3d' ? 'bg-white text-slate-800' : 'text-white/80 hover:text-white'}"    >3D</button>
   </div>
 
   <!-- Zoom remains available on the canvas and in the compact toolbar menu. -->
