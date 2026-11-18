@@ -22,6 +22,8 @@
   import { orderedFloors } from '$lib/utils/floors';
   import type { FloorPosition, FloorSeed } from '$lib/stores/project';
   import { currentProject, viewMode, undo, redo, addFloor, removeFloor, renameFloor, setActiveFloor, updateProjectName, createDefaultProject, snapEnabled, canvasZoom, canvasMinimumZoom, panMode, showFurnitureStore, layerVisibility, activeFloor, selectedElementId, elevationWallId, elevationPickMode, detectedRoomsStore } from '$lib/stores/project';
+  import { get } from 'svelte/store';
+  import type { Floor } from '$lib/models/types';
   import { exportAsJSON } from '$lib/utils/export';
   import { createProjectFromRoomPlan, extractRoomJsonFromZip, isRoomPlanJson } from '$lib/utils/roomplanImport';
   import SettingsDialog from './SettingsDialog.svelte';
