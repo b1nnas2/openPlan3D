@@ -21,9 +21,7 @@
   import { base } from '$app/paths';
   import { orderedFloors } from '$lib/utils/floors';
   import type { FloorPosition, FloorSeed } from '$lib/stores/project';
-  import { currentProject, viewMode, undo, redo, addFloor, removeFloor, renameFloor, setActiveFloor, updateProjectName, createDefaultProject, snapEnabled, canvasZoom, canvasMinimumZoom, panMode, showFurnitureStore, layerVisibility, activeFloor, selectedElementId, elevationWallId, elevationPickMode } from '$lib/stores/project';
-  import { get } from 'svelte/store';
-  import type { Floor } from '$lib/models/types';
+  import { currentProject, viewMode, undo, redo, addFloor, removeFloor, renameFloor, setActiveFloor, updateProjectName, createDefaultProject, snapEnabled, canvasZoom, canvasMinimumZoom, panMode, showFurnitureStore, layerVisibility, activeFloor, selectedElementId, elevationWallId, elevationPickMode, detectedRoomsStore } from '$lib/stores/project';
   import { exportAsJSON } from '$lib/utils/export';
   import { createProjectFromRoomPlan, extractRoomJsonFromZip, isRoomPlanJson } from '$lib/utils/roomplanImport';
   import SettingsDialog from './SettingsDialog.svelte';
@@ -219,8 +217,13 @@
   function onApplyToRoomFit() {
     const p = get(currentProject);
     if (!p) return;
+    // 4-2: 편집기 화면에서 찾은 방 목록을 저장 데이터에 같이 넣어서 보내기 (원본 프로젝트는 그대로 둠)
+    const copy = structuredClone(p);
+    const found = get(detectedRoomsStore);
+    const f0 = copy.floors[0];
+    if (f0 && (!f0.rooms || f0.rooms.length === 0) && found.length > 0) f0.rooms = found;
     const w = window as unknown as { Unity?: { call: (msg: string) => void } };
-    if (w.Unity) w.Unity.call('roomfit:' + JSON.stringify(p));
+    if (w.Unity) w.Unity.call('roomfit:' + JSON.stringify(copy));
     else alert('룸핏 앱 안에서 열었을 때만 쓸 수 있어요.');
   }
 
