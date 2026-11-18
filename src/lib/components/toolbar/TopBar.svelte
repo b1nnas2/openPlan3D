@@ -533,8 +533,7 @@
   <button
     onclick={() => layerVisibility.update(v => ({ ...v, furniture: !v.furniture }))}
     class="p-1.5 rounded transition-colors max-xl:hidden {$showFurnitureStore ? 'text-white bg-white/20' : 'text-white/40 hover:text-white/70 hover:bg-white/10'}"
-    title={`${$t('toolbarView.toggleFurniture')} (${$showFurnitureStore ? $t('toolbarView.visible') : $t('toolbarView.hidden')})`}
-    aria-label={$t('toolbarView.toggleFurniture')}
+    hidden title={`${$t('toolbarView.toggleFurniture')} (${$showFurnitureStore ? $t('toolbarView.visible') : $t('toolbarView.hidden')})`}    aria-label={$t('toolbarView.toggleFurniture')}
   >
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <rect x="2" y="12" width="20" height="8" rx="1"/><path d="M4 12V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5"/><line x1="12" y1="12" x2="12" y2="20"/>
@@ -559,8 +558,7 @@
       <button
         onclick={enterElevation}
         class="px-3 py-1 text-xs font-semibold rounded-full transition-colors flex items-center gap-1.5 {$elevationWallId ? 'bg-white text-slate-800' : $elevationPickMode ? 'bg-blue-500 text-white' : 'text-white/80 hover:text-white'}"
-        title={$elevationPickMode ? $t('toolbarView.pickHint') : $t('toolbarView.elevationHint')}
-        aria-pressed={!!$elevationWallId || $elevationPickMode}
+        hidden title={$elevationPickMode ? $t('toolbarView.pickHint') : $t('toolbarView.elevationHint')}        aria-pressed={!!$elevationWallId || $elevationPickMode}
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9H3z"/><rect x="10" y="14" width="4" height="6"/><rect x="5.5" y="13" width="3" height="3"/></svg>
         <span>{$t('toolbarView.elevation')}</span>
@@ -661,14 +659,12 @@
           <button class="w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left" onclick={() => canvasZoom.set(1)}>{$t('toolbarView.resetZoom')} ({$canvasZoom < 0.01 ? ($canvasZoom * 100).toPrecision(2) : Math.round($canvasZoom * 100)}%)</button>
           <button class="w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left" onclick={() => panMode.update(v => !v)}>{$panMode ? '✓ ' : ''}{$t('toolbarView.pan')}</button>
           <button class="w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left" aria-pressed={$snapEnabled} onclick={() => snapEnabled.update(v => !v)}>{$snapEnabled ? '✓ ' : ''}{$t('toolbarView.snap')}</button>
-          <button class="w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left" onclick={() => layerVisibility.update(v => ({ ...v, furniture: !v.furniture }))}>{$showFurnitureStore ? '✓ ' : ''}{$t('toolbarView.showFurniture')}</button>
-          {#if onToggleLayers}
+          <button hidden class="w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left" onclick={() => layerVisibility.update(v => ({ ...v, furniture: !v.furniture }))}>{$showFurnitureStore ? '✓ ' : ''}{$t('toolbarView.showFurniture')}</button>          {#if onToggleLayers}
             <button class="w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left" aria-pressed={layersOpen} onclick={() => { onToggleLayers?.(); moreOpen = false; }}>{$t('layers.title')}</button>
           {/if}
           <div class="h-px bg-gray-100 my-1"></div>
         {/if}
-        <button class="w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left" onclick={toggleElevationView}>{$elevationWallId ? '✓ ' : ''}{$t('toolbarView.elevationView')}</button>
-        {#if onToggleHistory}
+        <button hidden class="w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left" onclick={toggleElevationView}>{$elevationWallId ? '✓ ' : ''}{$t('toolbarView.elevationView')}</button>        {#if onToggleHistory}
           <button class="md:hidden w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left" aria-expanded={historyOpen} aria-label={$t('editorPanels.history')} onclick={() => { onToggleHistory?.(moreButton); moreOpen = false; }}>{$t('undoHistory.title')}</button>
         {/if}
         <button class="w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left" onclick={() => { versionHistoryOpen = true; moreOpen = false; }}>{$t('versions.title')}</button>
@@ -684,8 +680,7 @@
   <!-- Export dropdown -->
   <div class="relative" bind:this={exportRef}>
     <button
-      onclick={() => { exportOpen = !exportOpen; if (exportOpen) triggerTip('first-export', 300, 60); }}
-      class="px-3 py-1.5 max-xl:px-2 text-sm text-white/90 hover:text-white hover:bg-white/10 rounded transition-colors flex items-center gap-1.5"
+      hidden onclick={() => { exportOpen = !exportOpen; if (exportOpen) triggerTip('first-export', 300, 60); }}      class="px-3 py-1.5 max-xl:px-2 text-sm text-white/90 hover:text-white hover:bg-white/10 rounded transition-colors flex items-center gap-1.5"
       title={$t('exportMenu.title')}
       aria-label={$t('exportMenu.title')}
     >
@@ -818,7 +813,6 @@
 
 <!-- 룸핏(RoomFit) 추가: 지금 평면도를 룸핏 3D로 보내는 버튼 -->
 <button
-  class="fixed bottom-20 right-4 z-50 px-5 py-3 rounded-full bg-amber-700 text-white text-base font-bold shadow-lg hover:bg-amber-800"
-  onclick={onApplyToRoomFit}>
+  class="fixed bottom-16 left-1/2 -translate-x-1/2 z-50 px-8 py-3 rounded-full bg-amber-700 text-white text-lg font-bold shadow-lg hover:bg-amber-800"  onclick={onApplyToRoomFit}>
   룸핏에 적용
 </button>

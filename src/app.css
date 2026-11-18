@@ -9,6 +9,11 @@ html, body {
   font-family: system-ui, -apple-system, sans-serif;
 }
 
+/* 룸핏(RoomFit) 수정: 편집기 글씨·버튼 전체를 1.2배 크게 */
+html {
+  font-size: 110%;
+}
+
 /* ── Dark mode transitions ──────────────────────────────────── */
 html {
   color-scheme: light;

@@ -288,7 +288,7 @@
       class:text-white={showLayers}
       class:bg-slate-700={!showLayers}
       class:text-gray-300={!showLayers}
-      onclick={() => showLayers = !showLayers}
+      hidden onclick={() => showLayers = !showLayers}
       title={$t('editorPanels.layersTitle')}
       aria-label={$t('editorPanels.layers')}
       aria-expanded={showLayers}

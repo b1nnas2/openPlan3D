@@ -195,7 +195,7 @@
   }));
   let showStairs = $derived(layerVis.stairs);
   let showLayerPanel = $state(false);
-  let showMinimap = $state(true);
+  let showMinimap = $state(false);   // 룸핏(RoomFit) 수정: 미니맵 처음부터 끄기
   let minimapCanvas = $state<HTMLCanvasElement>();
   const RULER_SIZE = 24;
 
@@ -4116,17 +4116,13 @@
     <button class="hover:text-gray-700" onclick={() => projectSettings.update(s => ({ ...s, snapToGrid: !s.snapToGrid }))} title={snapControl.title} aria-pressed={snapControl.pressed}>
       <span class:opacity-40={!currentSnapEnabled}>🧲</span> {snapControl.label}
     </button>
-    <button class="hover:text-gray-700" onclick={() => layerVisibility.update(v => ({ ...v, furniture: !v.furniture }))} title={$t('canvasDisplay.furnitureHint')} aria-pressed={showFurniture}>
-      {showFurniture ? '🪑' : '👻'} {$t('canvasDisplay.furniture')}
+    <button hidden class="hover:text-gray-700" onclick={() => layerVisibility.update(v => ({ ...v, furniture: !v.furniture }))} title={$t('canvasDisplay.furnitureHint')} aria-pressed={showFurniture}>      {showFurniture ? '🪑' : '👻'} {$t('canvasDisplay.furniture')}
     </button>
-    <button class="hover:text-gray-700" onclick={() => showLayerPanel = !showLayerPanel} title={$t('layerVisibility.title')}>
-      🗂 {$t('layers.title')}
+    <button hidden class="hover:text-gray-700" onclick={() => showLayerPanel = !showLayerPanel} title={$t('layerVisibility.title')}>      🗂 {$t('layers.title')}
     </button>
-    <button class="hover:text-gray-700" onclick={() => showRulers = !showRulers} title={$t('canvasDisplay.rulersHint')} aria-pressed={showRulers}>
-      {showRulers ? '📏' : '📐'} {$t('canvasDisplay.rulers')}
+    <button hidden class="hover:text-gray-700" onclick={() => showRulers = !showRulers} title={$t('canvasDisplay.rulersHint')} aria-pressed={showRulers}>      {showRulers ? '📏' : '📐'} {$t('canvasDisplay.rulers')}
     </button>
-    <button class="hover:text-gray-700" onclick={() => showMinimap = !showMinimap} title={$t('canvasDisplay.mapHint')} aria-pressed={showMinimap}>
-      {showMinimap ? '🗺' : '🗺'} {$t('canvasDisplay.map')}
+    <button hidden class="hover:text-gray-700" onclick={() => showMinimap = !showMinimap} title={$t('canvasDisplay.mapHint')} aria-pressed={showMinimap}>      {showMinimap ? '🗺' : '🗺'} {$t('canvasDisplay.map')}
     </button>
   </div>
   <!-- Layer Visibility Panel -->

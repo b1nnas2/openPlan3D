@@ -409,7 +409,7 @@
     >{$t('buildTools.rooms')}</button>
     <button
       class="flex-1 py-2.5 text-xs font-semibold uppercase tracking-wide {activeTab === 'objects' ? 'text-slate-800 border-b-2 border-blue-500 bg-blue-50' : 'text-gray-500 hover:text-gray-700'}"
-      onclick={() => activeTab = 'objects'}
+      hidden onclick={() => activeTab = 'objects'}
     >{$t('buildTools.objects')}</button>
   </div>
 
@@ -442,11 +442,11 @@
           </div>
         </button>
 
-        <h3 class="text-xs font-semibold text-gray-400 uppercase mb-2 mt-3">{$t('buildTools.structure')}</h3>
-        <button
+        <h3 class="hidden text-xs font-semibold text-gray-400 uppercase mb-2 mt-3">{$t('buildTools.structure')}</h3>
+          <button
           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors {isPlacingStair ? 'bg-blue-50 text-slate-800 ring-1 ring-blue-200' : 'hover:bg-gray-50 text-gray-700'}"
           aria-pressed={isPlacingStair}
-          onclick={toggleStairPlacement}
+          hidden onclick={toggleStairPlacement}
         >
           <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center {isPlacingStair ? 'bg-blue-100' : ''}">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 5h-5V2h-3v6h-4V5H7v6H2v3h5v3h3v-3h4v3h3v-6h5z"/></svg>
@@ -457,7 +457,7 @@
           </div>
         </button>
 
-        <div class="flex gap-2">
+         <div class="hidden gap-2">
           <button
             class="flex-1 flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm transition-colors {columnArmed('round') ? 'bg-blue-50 text-slate-800 ring-1 ring-blue-200' : 'hover:bg-gray-50 text-gray-700'}"
             aria-pressed={columnArmed('round')}
@@ -487,8 +487,8 @@
         <h3 class="text-xs font-semibold text-gray-400 uppercase mb-2 mt-3">{$t('buildTools.annotate')}</h3>
         <button
           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors {currentTool === 'text' ? 'bg-blue-50 text-slate-800 ring-1 ring-blue-200' : 'hover:bg-gray-50 text-gray-700'}"
-          onclick={() => setTool('text')}
-        >
+          hidden onclick={() => setTool('text')}
+          >
           <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center {currentTool === 'text' ? 'bg-blue-100' : ''}">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><line x1="12" y1="4" x2="12" y2="20"/><line x1="8" y1="20" x2="16" y2="20"/></svg>
           </div>
@@ -523,11 +523,10 @@
           </div>
         </button>
 
-        <h3 class="text-xs font-semibold text-gray-400 uppercase mb-2 mt-3">{$t('buildTools.import')}</h3>
-        <button
+        <h3 class="hidden text-xs font-semibold text-gray-400 uppercase mb-2 mt-3">{$t('buildTools.import')}</h3>        <button
           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors hover:bg-gray-50 text-gray-700"
-          onclick={onImportImage}
-        >
+          hidden onclick={onImportImage}
+          >
           <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
           </div>
@@ -550,8 +549,8 @@
         {/if}
         <button
           class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors hover:bg-gray-50 text-gray-700"
-          onclick={onImportRoomPlan}
-        >
+          hidden onclick={onImportRoomPlan}
+                  >
           <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           </div>
