@@ -624,11 +624,11 @@
           {/each}
         </div>
 
-        <hr class="my-3 border-gray-200" />
+        <hr class="hidden my-3 border-gray-200" />
 
-        <h3 class="text-xs font-semibold text-gray-400 uppercase mb-2">{$t('roomChoices.templates')}</h3>
-        <p class="text-xs text-gray-400 mb-3">{$t('roomChoices.templatesHelp')}</p>
-        <div class="grid grid-cols-2 gap-2">
+        <h3 class="hidden text-xs font-semibold text-gray-400 uppercase mb-2">{$t('roomChoices.templates')}</h3>
+        <p class="hidden text-xs text-gray-400 mb-3">{$t('roomChoices.templatesHelp')}</p>
+        <div class="hidden grid-cols-2 gap-2">
           {#each roomTemplates as tmpl}
             <button
               class="flex flex-col items-center gap-1.5 p-3 rounded-lg border-2 border-gray-100 hover:border-green-300 hover:bg-green-50 transition-colors cursor-grab active:cursor-grabbing"
