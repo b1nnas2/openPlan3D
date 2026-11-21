@@ -870,7 +870,15 @@
       <label class="block">
         <span class="text-xs text-gray-500">{$t('roomProperties.name')}</span>
         <input type="text" value={selectedRoom.name} oninput={onRoomName} class="w-full px-2 py-1 border border-gray-200 rounded text-sm" />
-      </label>
+        <!-- 룸핏(RoomFit) 수정: 방 이름 빠르게 고르기 -->
+        <div class="flex flex-wrap gap-1 mt-1">
+          {#each ['방', '화장실', '주방', '현관', '베란다', '옷방'] as nm}
+            <button type="button"
+              class="px-2.5 py-1 rounded-full text-xs font-semibold {selectedRoom.name === nm ? 'bg-blue-500 text-white' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'}"
+              onclick={(e) => { e.preventDefault(); if (selectedRoom) { updateRoom(selectedRoom.id, { name: nm }); updateDetectedRoom(selectedRoom.id, { name: nm }); } }}>{nm}</button>
+          {/each}
+        </div>
+        </label>
       <label class="block">
         <span class="text-xs text-gray-500">{$t('roomProperties.category')}</span>
         <select value={selectedRoom.roomType ?? 'indoor'} onchange={(e) => { if (selectedRoom) { const v = (e.target as HTMLSelectElement).value as RoomCategory; updateRoom(selectedRoom.id, { roomType: v }); updateDetectedRoom(selectedRoom.id, { roomType: v } as any); } }} class="w-full px-2 py-1 border border-gray-200 rounded text-sm">
