@@ -159,3 +159,50 @@ dialog.modal-overlay::backdrop { background: transparent; }
     break-inside: avoid;
   }
 }
+
+/* ── 룸핏(RoomFit) 수정: 앱과 같은 색·둥글기 ─────────────────── */
+:root {
+  /* 회색 → 보랏빛 회색 */
+  --color-gray-50: #FAF8FF;  --color-gray-100: #F3F0FC; --color-gray-200: #E8E3F7;
+  --color-gray-300: #D8D1EE; --color-gray-400: #A9A3C4; --color-gray-500: #7D7899;
+  --color-gray-600: #5C5680; --color-gray-700: #463F6B; --color-gray-800: #2D2850;
+  --color-gray-900: #1E1A3A;
+  --color-slate-50: #FAF8FF;  --color-slate-100: #F3F0FC; --color-slate-200: #E8E3F7;
+  --color-slate-300: #D8D1EE; --color-slate-400: #A9A3C4; --color-slate-500: #7D7899;
+  --color-slate-600: #5C5680; --color-slate-700: #463F6B; --color-slate-800: #2D2850;
+  --color-slate-900: #1E1A3A;
+
+  /* 파란색 → 연보라 (앱 주요 버튼 색) */
+  --color-blue-50: #F5F2FF;  --color-blue-100: #ECE6FF; --color-blue-200: #DCD2FD;
+  --color-blue-300: #C6B8FA; --color-blue-400: #B09EF5; --color-blue-500: #A08AEE;
+  --color-blue-600: #8B74E3; --color-blue-700: #7560CC; --color-blue-800: #5E4CA6;
+  --color-blue-900: #4A3C82;
+
+  /* 주황색 → 분홍 (포인트) */
+  --color-orange-50: #FFF1F8;  --color-orange-100: #FDE3F0; --color-orange-200: #F9CBE3;
+  --color-orange-300: #F3B0D4; --color-orange-400: #EC9BCB; --color-orange-500: #E187BF;
+  --color-orange-600: #CF74AE; --color-orange-700: #B45F96; --color-orange-800: #8F4B77;
+  --color-orange-900: #6E3A5C;
+
+  /* 모서리 더 둥글게 */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+}
+
+html:not(.dark) body { background: #FAF8FF; }
+
+/* 위쪽 진한 남색 막대 → 연보라 그러데이션 (흰 글씨 그대로) */
+html:not(.dark) .bg-gradient-to-r.from-slate-800.to-slate-700 {
+  background: linear-gradient(90deg, #B49CF3 0%, #A08AEE 100%) !important;
+}
+html:not(.dark) .bg-slate-800 { background-color: #A08AEE !important; }
+html:not(.dark) .bg-slate-700 { background-color: #8B74E3 !important; }
+
+/* 그림자를 연보라빛으로 부드럽게 */
+html:not(.dark) .shadow, html:not(.dark) .shadow-md, html:not(.dark) .shadow-lg,
+html:not(.dark) .shadow-xl, html:not(.dark) .shadow-2xl {
+  --tw-shadow-color: rgba(120, 100, 180, 0.18);
+}
