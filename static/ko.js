@@ -76,7 +76,40 @@
     "light oak": "밝은 참나무", "walnut": "월넛", "bamboo": "대나무", "oak": "참나무", "maple": "단풍나무", "cherry": "체리목",
     "white tile": "흰 타일", "gray tile": "회색 타일", "porcelain": "포세린 타일", "vinyl": "장판",
     "white marble": "흰 대리석", "dark marble": "검은 대리석", "slate": "슬레이트",
-    "beige carpet": "베이지 카펫", "gray carpet": "회색 카펫"
+    "beige carpet": "베이지 카펫", "gray carpet": "회색 카펫",
+    // 층 추가 메뉴
+    "add top floor": "위층 추가", "add floor below": "아래층 추가",
+    "exterior walls": "바깥벽만", "— current footprint": "— 지금 층 모양 그대로", "exterior walls — current footprint": "바깥벽만 — 지금 층 모양 그대로",
+    "all walls": "모든 벽", "— includes partitions": "— 칸막이까지", "all walls — includes partitions": "모든 벽 — 칸막이까지",
+    "empty floor": "빈 층", "remove current floor": "지금 층 지우기",
+    // 넓이 요약
+    "area summary": "넓이 요약", "interior area": "실내 넓이",
+    "interior area excludes wall footprints. the totals and room breakdown below use wall centerlines.": "실내 넓이는 벽 두께를 뺀 넓이예요. 아래 합계와 방별 넓이는 벽 가운데 선 기준이에요.",
+    "total area": "전체 넓이", "doors / windows": "문 / 창문", "wall length": "벽 길이",
+    "by category": "분류별", "room breakdown": "방별 넓이",
+    // 설정
+    "project": "평면도", "dimensions": "치수", "appearance": "모양", "ai": "AI",
+    "project name": "평면도 이름", "description": "설명", "add a description for this project...": "이 평면도에 대한 설명을 적어 주세요...",
+    "floor elevations": "층 높이",
+    "set each floor's height above ground for stacked 3d. use negative values for basements. wall heights and other floors stay unchanged. defaults are 300 cm apart.":
+      "층마다 땅에서의 높이를 정해요. 지하는 음수로 적어요. 벽 높이와 다른 층은 그대로예요. 기본은 300cm 간격이에요.",
+    "ground floor elevation": "1층 높이", "ground floor slab thickness": "1층 바닥 두께",
+    "extends below the floor surface in enclosed rooms.": "닫힌 방의 바닥 아래로 들어가는 두께예요.",
+    // 되돌리기 기록
+    "undo history": "되돌리기 기록", "placed room template": "방 모양 추가", "edit": "수정", "current state": "지금 상태",
+    // 단축키 창
+    "keyboard shortcuts": "단축키", "copy all": "모두 복사", "elements": "요소", "view": "보기", "canvas": "평면도 칸", "walls": "벽",
+    "select tool": "선택", "wall tool": "벽 그리기", "door tool": "문 넣기", "pan mode": "화면 옮기기",
+    "measure tool": "길이 재기", "annotate tool": "치수 표시", "text tool": "글자 넣기", "switch snap step (grid / fine)": "맞춤 간격 바꾸기 (격자 / 촘촘히)",
+    "copy": "복사", "paste": "붙여넣기", "select all": "모두 선택", "deselect all": "선택 풀기",
+    "save project": "저장", "cancel / deselect": "취소 / 선택 풀기",
+    "rotate element": "돌리기", "delete selected": "고른 것 지우기", "lock / unlock": "잠금 / 풀기",
+    "group selection": "묶기", "ungroup": "묶음 풀기",
+    "toggle 2d / 3d": "2D / 3D 바꾸기", "zoom to fit": "화면에 맞추기", "toggle grid": "격자 켜기·끄기",
+    "toggle layers": "레이어 켜기·끄기", "show shortcuts": "단축키 보기",
+    "zoom in / out": "확대 / 축소", "pan canvas": "화면 옮기기", "scroll": "스크롤", "space+drag": "스페이스+끌기",
+    "finish wall chain": "벽 그리기 끝내기", "close wall loop": "벽 닫기", "dbl-click": "두 번 클릭",
+    "press ? or esc to close": "? 또는 Esc로 닫기", "saved ✓": "저장됨 ✓"
   };
   const R = [
     [/^(\d+)\s*walls?$/i, "벽 $1개"],
@@ -89,6 +122,9 @@
     [/^(\d+)\s*hours? ago$/i, "$1시간 전"],
     [/^(\d+)\s*days? ago$/i, "$1일 전"],
     [/^item photos\s*\((\d+)\)$/i, "사진 ($1)"],
+    [/^(\d+)\s*rooms?$/i, "방 $1개"],
+    [/^step\s+(\d+)\s+of\s+(\d+)$/i, "$2단계 중 $1"],
+    [/^use default\s*\((.+)\)$/i, "기본값 ($1)"],
   ];
   function tr(s) {
     const t = s.trim();
