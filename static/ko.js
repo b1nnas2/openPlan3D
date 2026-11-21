@@ -34,7 +34,49 @@
     "hallway": "복도", "closet": "옷방", "balcony": "베란다", "office": "작업실", "dining room": "식당",
     "wood": "나무", "tile": "타일", "carpet": "카펫", "concrete": "콘크리트", "marble": "대리석", "laminate": "강마루",
     "cancel": "취소", "ok": "확인", "close": "닫기", "apply": "적용", "reset": "초기화",
-    "dark mode": "어두운 화면", "units": "단위", "language": "언어"
+    "dark mode": "어두운 화면", "units": "단위", "language": "언어",
+    // 방 속성 창
+    "room type": "방 종류", "custom": "직접 입력", "room name": "방 이름", "category": "분류",
+    "open to floor below": "아래층이 보이는 구조", "room": "방",
+    // 첫 화면 (평면도 목록)
+    "floor plan editor": "평면도 편집기", "templates": "견본 평면도", "new project": "새 평면도",
+    "projects and version history are saved in this browser.": "평면도와 수정 기록은 이 기기에 저장돼요.",
+    "download library backup": "전체 백업 받기", "restore library backup": "백업 되살리기",
+    "import project package": "평면도 파일 불러오기", "user guide": "사용 안내",
+    "this browser may delete saved projects, for example when it runs low on space. use “download library backup” regularly to keep a copy.":
+      "저장 공간이 부족하면 저장한 평면도가 지워질 수 있어요. 가끔 [전체 백업 받기]로 따로 보관해 주세요.",
+    "just now": "방금", "open": "열기", "rename": "이름 바꾸기",
+    // 벽 속성 창
+    "start height": "시작 쪽 높이", "end height": "끝 쪽 높이", "keep fixed": "고정할 끝",
+    "start (a)": "시작점 (A)", "end (b)": "끝점 (B)", "center": "가운데", "middle": "가운데",
+    "enter cm, or include units such as 2.5 m, 12\" or 5'6\".": "cm로 입력하거나 2.5 m처럼 단위를 붙여도 돼요.",
+    "joined corners follow the moving endpoint. openings keep their relative positions.": "붙어 있는 모서리는 함께 움직이고, 문·창문은 제자리를 지켜요.",
+    "wall type": "벽 종류", "interior": "내벽", "exterior": "외벽", "partition": "칸막이",
+    "curved wall": "곡선 벽", "curve": "곡선", "split wall": "벽 나누기", "material": "재질",
+    "texture": "무늬", "opacity": "투명도", "angle": "각도", "offset": "간격", "elevation": "벽면 보기",
+    "lock": "잠금", "unlock": "잠금 해제", "visible": "보이기", "hidden": "숨기기",
+    // 문·창문 속성 창
+    "distance from a": "A에서 거리", "distance from b": "B에서 거리",
+    "door style": "문 모양", "slab": "민무늬", "panel": "판넬", "glass": "유리", "shaker": "테두리형",
+    "hinge side": "경첩 위치", "left": "왼쪽", "right": "오른쪽",
+    "opens": "열리는 쪽", "inward": "안쪽으로", "outward": "바깥쪽으로",
+    "frame color": "문틀 색", "custom:": "직접 고르기:", "join to another door...": "다른 문과 잇기...",
+    "item details": "가격 정보", "item cost": "가격",
+    "use the same currency throughout the project. clear the field to leave the cost unset.": "가격은 원 단위로 적어 주세요. 비워 두면 가격 없음이에요.",
+    // 방 목록
+    "room presets": "방 모양 견본", "click to add a room shape to the canvas": "누르면 평면도에 방 모양이 추가돼요",
+    "rectangle": "네모", "l-shape": "ㄱ자", "t-shape": "ㅜ자", "u-shape": "ㄷ자",
+    // 방 속성 창 (아래쪽)
+    "item notes": "메모", "room use": "방 용도", "unspecified": "정하지 않음",
+    "room ceiling height": "천장 높이", "use plan default": "평면도 기본값",
+    "this room override travels to iphone. edit wall heights to change the web 3d geometry.": "이 방에만 쓰는 천장 높이예요. 3D 모양은 벽 높이로 바꿔 주세요.",
+    "add photo": "사진 추가", "solid color": "단색", "stone": "돌",
+    "jpg or png, up to 8 mib and 24 megapixels. large photos become resized copies up to 1600 pixels. no uploads.": "JPG·PNG 사진(8MB까지)을 넣을 수 있어요. 큰 사진은 작게 줄여서 저장돼요.",
+    // 바닥재 이름
+    "light oak": "밝은 참나무", "walnut": "월넛", "bamboo": "대나무", "oak": "참나무", "maple": "단풍나무", "cherry": "체리목",
+    "white tile": "흰 타일", "gray tile": "회색 타일", "porcelain": "포세린 타일", "vinyl": "장판",
+    "white marble": "흰 대리석", "dark marble": "검은 대리석", "slate": "슬레이트",
+    "beige carpet": "베이지 카펫", "gray carpet": "회색 카펫"
   };
   const R = [
     [/^(\d+)\s*walls?$/i, "벽 $1개"],
@@ -42,6 +84,11 @@
     [/^snap\s+(.+)$/i, "맞춤 $1"],
     [/^room\s+(\d+)$/i, "방 $1"],
     [/^wall\s+(\d+)$/i, "벽 $1"],
+    [/^(\d+)\s*projects?$/i, "평면도 $1개"],
+    [/^(\d+)\s*minutes? ago$/i, "$1분 전"],
+    [/^(\d+)\s*hours? ago$/i, "$1시간 전"],
+    [/^(\d+)\s*days? ago$/i, "$1일 전"],
+    [/^item photos\s*\((\d+)\)$/i, "사진 ($1)"],
   ];
   function tr(s) {
     const t = s.trim();
@@ -49,6 +96,12 @@
     const k = W[t.toLowerCase()];
     if (k) return s.replace(t, k);
     for (const [re, to] of R) if (re.test(t)) return s.replace(t, t.replace(re, to));
+    // 앞에 그림(🏠, ✏️ 등)이 붙은 글자: 그림은 두고 뒤 글자만 바꾸기
+    const m = t.match(/^([^\p{L}\p{N}]+)(.+)$/u);
+    if (m) { const k2 = W[m[2].trim().toLowerCase()]; if (k2) return s.replace(t, m[1] + k2); }
+    // 뒤에 단위가 붙은 글자: "Length (cm)" → "길이 (cm)"
+    const u = t.match(/^(.+?)\s*(\((?:cm|m|mm|°|%)\))$/i);
+    if (u) { const k3 = W[u[1].trim().toLowerCase()]; if (k3) return s.replace(t, k3 + " " + u[2]); } 
     return null;
   }
   function walk(node) {

@@ -819,5 +819,5 @@
 <!-- 룸핏(RoomFit) 추가: 지금 평면도를 룸핏 3D로 보내는 버튼 -->
 <button
   class="fixed bottom-16 left-1/2 -translate-x-1/2 z-50 px-8 py-3 rounded-full bg-amber-700 text-white text-lg font-bold shadow-lg hover:bg-amber-800"  onclick={onApplyToRoomFit}>
-  룸핏에 적용
+  <span id="rf-apply">룸핏에 적용</span>
 </button>
