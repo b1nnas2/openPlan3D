@@ -229,6 +229,52 @@
     else alert('룸핏 앱 안에서 열었을 때만 쓸 수 있어요.');
   }
 
+  // 룸핏(RoomFit) 추가: 앱에서 받은 평면도(벽·문·창문·방 이름)로 새 편집기 프로젝트 만들기
+  async function roomfitLoad(data: any): Promise<boolean> {
+    try {
+      const src = data?.floors?.[0];
+      if (!src || !Array.isArray(src.walls) || src.walls.length === 0) return false;
+      const p = createDefaultProject('사진으로 만든 평면도');
+      const f = p.floors[0];
+      const num = (v: any, d: number) => (typeof v === 'number' && Number.isFinite(v) && v > 0 ? v : d);
+      f.walls = src.walls.map((w: any) => {
+        const h = num(w.height, 240);
+        return { id: String(w.id), start: { x: w.start.x, y: w.start.y }, end: { x: w.end.x, y: w.end.y },
+                 thickness: num(w.thickness, 15), height: h, startHeight: h, endHeight: h, color: '#444444' };
+      });
+      const ids = new Set(f.walls.map(w => w.id));
+      f.doors = (src.doors ?? []).filter((d: any) => ids.has(d.wallId)).map((d: any) => ({
+        id: String(d.id), wallId: d.wallId, position: Math.min(1, Math.max(0, d.position)), width: num(d.width, 90),
+        height: num(d.height, 210), type: 'single' as const, swingDirection: d.swingDirection === 'right' ? 'right' as const : 'left' as const,
+        flipSide: !!d.flipSide }));
+      f.windows = (src.windows ?? []).filter((n: any) => ids.has(n.wallId)).map((n: any) => ({
+        id: String(n.id), wallId: n.wallId, position: Math.min(1, Math.max(0, n.position)), width: num(n.width, 120),
+        height: num(n.height, 120), sillHeight: typeof n.sillHeight === 'number' && n.sillHeight >= 0 ? n.sillHeight : 90,
+        type: 'standard' as const }));
+      // 방: 편집기가 벽으로 찾은 방에 사진에서 읽은 방 이름 붙이기. 사진 쪽에 없는 작은 칸(덕트 등)은 바닥 없는 칸으로
+      const srcRooms = (src.rooms ?? []).filter((r: any) => Array.isArray(r.points) && r.points.length >= 3);
+      const mid = (pts: any[]) => ({ x: pts.reduce((s, q) => s + q.x, 0) / pts.length, y: pts.reduce((s, q) => s + q.y, 0) / pts.length });
+      const inside = (q: { x: number; y: number }, poly: { x: number; y: number }[]) => {
+        let c = false;
+        for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+          const a = poly[i], b = poly[j];
+          if ((a.y > q.y) !== (b.y > q.y) && q.x < (b.x - a.x) * (q.y - a.y) / (b.y - a.y) + a.x) c = !c;
+        }
+        return c;
+      };
+      f.rooms = resolveRoomGeometry(f).map(({ room, polygon }) => {
+        const hit = srcRooms.find((r: any) => inside(mid(r.points), polygon));
+        if (hit) return hit.name ? { ...room, name: String(hit.name) } : room;
+        return room.area < 3 ? { ...room, floorOpening: true } : room;
+      });
+      await openProject(() => p, 'new', openingLifetime.signal);
+      return true;
+    } catch (error) {
+      console.log('[roomfitLoad] ' + (error instanceof Error ? error.message : String(error)));
+      return false;
+    }
+  }
+
   async function onExportPackage() {
     const project = get(currentProject);
     exportOpen = false; packageError = null;
@@ -306,6 +352,8 @@
   onMount(() => {
     const stopAutoSave = initAutoSave();
     initVersionHistory();
+    // 룸핏(RoomFit) 추가: 앱이 [평면도 사진 불러오기]로 만든 평면도(또는 저장해 둔 평면도)를 편집기에 그대로 열기
+    (window as unknown as { roomfitLoad?: (data: any) => Promise<boolean> }).roomfitLoad = roomfitLoad;
     const openSettings = () => { if (!hasOpenModal()) settingsOpen = true; };
     window.addEventListener('open-settings', openSettings);
 
