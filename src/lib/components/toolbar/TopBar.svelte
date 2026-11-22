@@ -237,10 +237,10 @@
       const p = createDefaultProject('사진으로 만든 평면도');
       const f = p.floors[0];
       const num = (v: any, d: number) => (typeof v === 'number' && Number.isFinite(v) && v > 0 ? v : d);
+      const str = (v: any): string | undefined => (typeof v === 'string' && v !== '' ? v : undefined);
       f.walls = src.walls.map((w: any) => {
         const h = num(w.height, 240);
         // 룸핏 묶음 7: 앱에서 넘어온 벽지·벽 색도 그대로 (예전에는 빠져서 편집기에 다녀오면 사라졌음)
-        const str = (v: any) => (typeof v === 'string' && v !== '' ? v : undefined);
         return { id: String(w.id), start: { x: w.start.x, y: w.start.y }, end: { x: w.end.x, y: w.end.y },
                  thickness: num(w.thickness, 15), height: h, startHeight: h, endHeight: h, color: '#444444',
                  texture: str(w.texture), interiorTexture: str(w.interiorTexture), exteriorTexture: str(w.exteriorTexture),
@@ -252,14 +252,17 @@
         id: String(d.id), wallId: d.wallId, position: Math.min(1, Math.max(0, d.position)), width: num(d.width, 90),
         height: num(d.height, 210),
         // 룸핏 묶음 7: 문 종류 그대로 (앱의 '문 없음'(none) = 편집기의 opening) · 앱에서 고른 문 색도 같이
-        type: (d.type === 'none' || d.type === 'opening' ? 'opening' : ['double', 'sliding', 'french', 'pocket', 'bifold', 'garage'].includes(d.type) ? d.type : 'single') as any,
+        type: (d.type === 'none' || d.type === 'opening' ? 'opening' : d.type === 'folding' ? 'bifold' : d.type === 'triple' ? 'sliding' : ['double', 'sliding', 'french', 'pocket', 'bifold', 'garage'].includes(d.type) ? d.type : 'single') as any,
+        // 룸핏 묶음 9: 앱에서 고른 문 종류·문짝·손잡이·열림 상태 그대로
+        rfType: str(d.rfType) ?? str(d.type), style: str(d.style), handle: str(d.handle), open: !!d.open,
         swingDirection: d.swingDirection === 'right' ? 'right' as const : 'left' as const,
         flipSide: !!d.flipSide, color: typeof d.color === 'string' && d.color ? d.color : undefined } as any));
       f.windows = (src.windows ?? []).filter((n: any) => ids.has(n.wallId)).map((n: any) => ({
         id: String(n.id), wallId: n.wallId, position: Math.min(1, Math.max(0, n.position)), width: num(n.width, 120),
         height: num(n.height, 120), sillHeight: typeof n.sillHeight === 'number' && n.sillHeight >= 0 ? n.sillHeight : 90,
         // 룸핏 묶음 7: 창문 종류(통창 = fixed, 작은 창 = casement)와 창틀 색 그대로
-        type: (n.type === 'picture' || n.type === 'fixed' ? 'fixed' : n.type === 'small' || n.type === 'casement' ? 'casement' : 'standard') as any,
+        type: (n.type === 'picture' || n.type === 'fixed' ? 'fixed' : n.type === 'casement' ? 'casement' : n.type === 'quad' || n.type === 'sliding' ? 'sliding' : 'standard') as any,
+        rfType: str(n.rfType) ?? str(n.type),   // 룸핏 묶음 9: 앱 창문 종류(작은 창·아치·창살 등) 그대로
         frameColor: typeof n.frameColor === 'string' && n.frameColor ? n.frameColor : undefined } as any));
       // 방: 편집기가 벽으로 찾은 방에 사진에서 읽은 방 이름 붙이기. 사진 쪽에 없는 작은 칸(덕트 등)은 바닥 없는 칸으로
       const srcRooms = (src.rooms ?? []).filter((r: any) => Array.isArray(r.points) && r.points.length >= 3);
@@ -276,7 +279,9 @@
         const hit = srcRooms.find((r: any) => inside(mid(r.points), polygon));
         if (hit) return { ...room, ...(hit.name ? { name: String(hit.name) } : {}),
                           ...(hit.floorTexture ? { floorTexture: String(hit.floorTexture) } : {}),
-                          ...(hit.color && hit.color !== '#ffffff' ? { color: String(hit.color) } : {}) };   // 룸핏 묶음 7: 바닥재·방 색도
+                          ...(hit.color && hit.color !== '#ffffff' ? { color: String(hit.color) } : {}),   // 룸핏 묶음 7: 바닥재·방 색도
+                          wallFinish: str(hit.wallFinish), curtain: str(hit.curtain), molding: !!hit.molding,
+                          lightType: str(hit.lightType), lightColor: str(hit.lightColor) } as any;   // 룸핏 묶음 9: 방 카드 꾸밈
         return room.area < 3 ? { ...room, floorOpening: true } : room;
       });
       await openProject(() => p, 'new', openingLifetime.signal);
