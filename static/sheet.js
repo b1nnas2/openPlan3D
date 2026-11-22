@@ -172,19 +172,7 @@
       requestAnimationFrame(follow);
 })();
 
-// 룸핏(RoomFit) 수정: 바닥·벽 무늬(텍스처) 설정 숨기기 (흑백 디자인 · 색만 쓰기)
-(function () {
-  const words = ['바닥재', '바닥 재질', '바닥 무늬', '무늬', '재질', '텍스처', 'Floor texture', 'Floor Texture', 'Texture', 'Material'];
-  setInterval(() => {
-    document.querySelectorAll('label,h3,h4,span,div,p').forEach(el => {
-      if (el.childElementCount || el.dataset.rfHid) return;
-      const t = el.textContent.trim();
-      if (!words.includes(t)) return;
-      const box = el.parentElement;
-      if (box) { box.style.display = 'none'; el.dataset.rfHid = '1'; }
-    });
-  }, 500);
-})();
+// 룸핏(RoomFit) 수정: 바닥·벽 무늬(텍스처) 설정 숨기기 → 9단계에서 벽지·바닥 무늬를 다시 쓰기로 해서 지움 (3D에도 그대로 나옴)
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
