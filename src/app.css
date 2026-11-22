@@ -160,31 +160,31 @@ dialog.modal-overlay::backdrop { background: transparent; }
   }
 }
 
-/* ── 룸핏(RoomFit) 수정: 앱과 같은 색·둥글기 ─────────────────── */
+/* ── 룸핏(RoomFit) 수정: 흑백 디자인 (회백색·검정) ─────────────────── */
 :root {
-  /* 회색 → 보랏빛 회색 */
-  --color-gray-50: #FAF8FF;  --color-gray-100: #F3F0FC; --color-gray-200: #E8E3F7;
-  --color-gray-300: #D8D1EE; --color-gray-400: #A9A3C4; --color-gray-500: #7D7899;
-  --color-gray-600: #5C5680; --color-gray-700: #463F6B; --color-gray-800: #2D2850;
-  --color-gray-900: #1E1A3A;
-  --color-slate-50: #FAF8FF;  --color-slate-100: #F3F0FC; --color-slate-200: #E8E3F7;
-  --color-slate-300: #D8D1EE; --color-slate-400: #A9A3C4; --color-slate-500: #7D7899;
-  --color-slate-600: #5C5680; --color-slate-700: #463F6B; --color-slate-800: #2D2850;
-  --color-slate-900: #1E1A3A;
+  /* 회색 → 색 없는 회백색 계열 */
+  --color-gray-50: #F4F4F2;  --color-gray-100: #E9E9E6; --color-gray-200: #DCDCD8;
+  --color-gray-300: #C9C9C6; --color-gray-400: #9A9A97; --color-gray-500: #6B6B6B;
+  --color-gray-600: #4A4A48; --color-gray-700: #333332; --color-gray-800: #1F1F1F;
+  --color-gray-900: #111111;
+  --color-slate-50: #F4F4F2;  --color-slate-100: #E9E9E6; --color-slate-200: #DCDCD8;
+  --color-slate-300: #C9C9C6; --color-slate-400: #9A9A97; --color-slate-500: #6B6B6B;
+  --color-slate-600: #4A4A48; --color-slate-700: #333332; --color-slate-800: #1F1F1F;
+  --color-slate-900: #111111;
 
-  /* 파란색 → 연보라 (앱 주요 버튼 색) */
-  --color-blue-50: #F5F2FF;  --color-blue-100: #ECE6FF; --color-blue-200: #DCD2FD;
-  --color-blue-300: #C6B8FA; --color-blue-400: #B09EF5; --color-blue-500: #A08AEE;
-  --color-blue-600: #8B74E3; --color-blue-700: #7560CC; --color-blue-800: #5E4CA6;
-  --color-blue-900: #4A3C82;
+  /* 파란색(주요 버튼) → 검정, 연한 파랑(선택 표시) → 연회색 */
+  --color-blue-50: #F2F2F0;  --color-blue-100: #E9E9E6; --color-blue-200: #DCDCD8;
+  --color-blue-300: #C9C9C6; --color-blue-400: #8A8A8A; --color-blue-500: #111111;
+  --color-blue-600: #000000; --color-blue-700: #222222; --color-blue-800: #111111;
+  --color-blue-900: #000000;
 
-  /* 주황색 → 분홍 (포인트) */
-  --color-orange-50: #FFF1F8;  --color-orange-100: #FDE3F0; --color-orange-200: #F9CBE3;
-  --color-orange-300: #F3B0D4; --color-orange-400: #EC9BCB; --color-orange-500: #E187BF;
-  --color-orange-600: #CF74AE; --color-orange-700: #B45F96; --color-orange-800: #8F4B77;
-  --color-orange-900: #6E3A5C;
+  /* 주황색(포인트) → 회색 */
+  --color-orange-50: #F2F2F0;  --color-orange-100: #E9E9E6; --color-orange-200: #DCDCD8;
+  --color-orange-300: #C9C9C6; --color-orange-400: #9A9A97; --color-orange-500: #6B6B6B;
+  --color-orange-600: #4A4A48; --color-orange-700: #333332; --color-orange-800: #1F1F1F;
+  --color-orange-900: #111111;
 
-  /* 모서리 더 둥글게 */
+  /* 모서리 둥글기 */
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
@@ -192,27 +192,38 @@ dialog.modal-overlay::backdrop { background: transparent; }
   --radius-2xl: 1.5rem;
 }
 
-html:not(.dark) body { background: #FAF8FF; }
+html:not(.dark) body { background: #F4F4F2; }
 
-/* 위쪽 진한 남색 막대 → 연보라 그러데이션 (흰 글씨 그대로) */
+/* 위쪽 막대 → 밝은 회백색 + 검정 글씨 (앱 위 막대와 이어지게) */
 html:not(.dark) .bg-gradient-to-r.from-slate-800.to-slate-700 {
-  background: linear-gradient(90deg, #B49CF3 0%, #A08AEE 100%) !important;
+  background: #F4F4F2 !important;
+  color: #111111 !important;
+  border-bottom: 1px solid #DCDCD8;
 }
-html:not(.dark) .bg-slate-800 { background-color: #A08AEE !important; }
-html:not(.dark) .bg-slate-700 { background-color: #8B74E3 !important; }
+html:not(.dark) .bg-gradient-to-r.from-slate-800.to-slate-700 .text-white,
+html:not(.dark) .bg-gradient-to-r.from-slate-800.to-slate-700 [class*="text-slate-"],
+html:not(.dark) .bg-gradient-to-r.from-slate-800.to-slate-700 [class*="text-gray-"] {
+  color: #111111 !important;
+}
+html:not(.dark) .bg-slate-800 { background-color: #1F1F1F !important; }
+html:not(.dark) .bg-slate-700 { background-color: #333332 !important; }
 
-/* 그림자를 연보라빛으로 부드럽게 */
+/* 보라·분홍 제목 글씨 → 검정 */
+html:not(.dark) .text-purple-500, html:not(.dark) .text-rose-500 { color: #111111 !important; }
+html:not(.dark) .bg-purple-100, html:not(.dark) .bg-rose-100 { background-color: #E9E9E6 !important; }
+
+/* 그림자: 색 없이 아주 연하게 */
 html:not(.dark) .shadow, html:not(.dark) .shadow-md, html:not(.dark) .shadow-lg,
 html:not(.dark) .shadow-xl, html:not(.dark) .shadow-2xl {
-  --tw-shadow-color: rgba(120, 100, 180, 0.18);
+  --tw-shadow-color: rgba(0, 0, 0, 0.08);
 }
-/* 룸핏(RoomFit) 수정: [룸핏에 적용] 버튼을 앱 시작하기 버튼과 같은 색으로 */
+/* 룸핏(RoomFit) 수정: [룸핏에 적용] 버튼 → 검정 */
 button:has(> #rf-apply) {
-  background: linear-gradient(100deg, #E8A0D6 0%, #B096F0 55%, #9696F2 100%) !important;
+  background: #111111 !important;
   color: #fff !important;
   border: none !important;
-  box-shadow: inset 0 1.5px 2px rgba(255,255,255,0.9), 0 10px 22px -8px rgba(150,120,220,0.55) !important;
-  text-shadow: 0 1px 3px rgba(110,80,190,0.45);
+  box-shadow: 0 6px 16px -8px rgba(0,0,0,0.35) !important;
+  text-shadow: none;
 }
 /* 세로 폰: 서랍·속성 창과 안 겹치게 오른쪽 위 작은 알약으로 */
 @media (max-width: 767px) {

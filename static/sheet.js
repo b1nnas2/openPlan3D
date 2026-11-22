@@ -4,12 +4,12 @@
   css.textContent =
     '[data-rf-folded]>*{visibility:hidden}' +
     '.rf-h{position:fixed;z-index:60;display:flex;align-items:center;justify-content:center;touch-action:none;cursor:grab}' +
-    '.rf-h>i{display:block;border-radius:9px;background:#C4BEE0}' +
-    '.rf-fold{position:fixed;z-index:59;align-items:center;gap:8px;padding:0 6px 0 18px;box-sizing:border-box;background:rgba(255,255,255,.96);border-radius:24px;box-shadow:0 8px 22px -8px rgba(120,100,180,.45);font-size:14px;color:#2D2850;cursor:pointer}' +
+    '.rf-h>i{display:block;border-radius:9px;background:#C9C9C6}' +
+    '.rf-fold{position:fixed;z-index:59;align-items:center;gap:8px;padding:0 6px 0 18px;box-sizing:border-box;background:rgba(244,244,242,.97);border-radius:24px;box-shadow:0 6px 16px -8px rgba(0,0,0,.18);font-size:14px;color:#111111;cursor:pointer}' +
     '.rf-fold b{font-weight:700;white-space:nowrap}' +
-    '.rf-fold span{flex:1;font-size:11px;color:#7D7899;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}' +
-    '.rf-fold button{border:0;border-radius:18px;padding:8px 16px;background:#A08AEE;color:#fff;font-weight:700;white-space:nowrap}';
-  document.head.appendChild(css);
+    '.rf-fold span{flex:1;font-size:11px;color:#6B6B6B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}' +
+    '.rf-fold button{border:0;border-radius:18px;padding:8px 16px;background:#111111;color:#fff;font-weight:700;white-space:nowrap}';
+    document.head.appendChild(css);
   const mobile = () => innerWidth < 768;
   const FAB = () => document.querySelector('button.md\\:hidden.fixed.bottom-4.left-4');
 
@@ -170,7 +170,21 @@
         else fab.style.removeProperty('bottom');
       }
       requestAnimationFrame(follow);
-    })();
+})();
+
+// 룸핏(RoomFit) 수정: 바닥·벽 무늬(텍스처) 설정 숨기기 (흑백 디자인 · 색만 쓰기)
+(function () {
+  const words = ['바닥재', '바닥 재질', '바닥 무늬', '무늬', '재질', '텍스처', 'Floor texture', 'Floor Texture', 'Texture', 'Material'];
+  setInterval(() => {
+    document.querySelectorAll('label,h3,h4,span,div,p').forEach(el => {
+      if (el.childElementCount || el.dataset.rfHid) return;
+      const t = el.textContent.trim();
+      if (!words.includes(t)) return;
+      const box = el.parentElement;
+      if (box) { box.style.display = 'none'; el.dataset.rfHid = '1'; }
+    });
+  }, 500);
+})();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
