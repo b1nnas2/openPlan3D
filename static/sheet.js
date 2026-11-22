@@ -189,3 +189,36 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
 })();
+
+// 룸핏(RoomFit) 수정: 영어 안내문·튜토리얼·단축키 표시·편집기 자체 [저장] 숨기기
+(function () {
+  const css = document.createElement('style');
+  css.textContent = 'kbd{display:none!important}';   // 단축키 표시 (V, W 등)
+  document.head.appendChild(css);
+  const hideStart = ['Click to add wall segment', 'Nice!', 'Press Escape', 'Double-click to finish', 'Click to place', 'Drag to'];
+  const skipBtns = ['Got it', 'Skip', 'Skip tour', 'Done', 'Dismiss', 'Next'];
+  const saveBtns = ['저장', '저장 중...', '저장됨', '저장됨 ✓', 'Save', 'Saved'];
+  setInterval(() => {
+    // 튜토리얼 창: [Got it]·[Skip] 등을 자동으로 눌러서 닫기
+    document.querySelectorAll('button').forEach(b => {
+      const t = b.textContent.trim();
+      if (skipBtns.includes(t) && b.offsetParent) b.click();
+    });
+    // 영어 안내 말풍선 숨기기
+    document.querySelectorAll('div,span,p').forEach(el => {
+      if (el.dataset.rfHid) return;
+      const t = el.textContent.trim();
+      if (!hideStart.some(w => t.startsWith(w)) || t.length > 200) return;
+      el.style.display = 'none'; el.dataset.rfHid = '1';
+    });
+    // 왼쪽 도구 이름 옆 한 글자 단축키 (V, W 등) 숨기기
+    document.querySelectorAll('span').forEach(el => {
+      if (!el.childElementCount && /^[A-Z]$/.test(el.textContent.trim())) el.style.display = 'none';
+    });
+    // 편집기 위쪽 막대의 자체 [저장] 버튼 숨기기 (저장은 룸핏 [저장]으로만)
+    const head = document.querySelector('.bg-gradient-to-r.from-slate-800');
+    if (head) head.querySelectorAll('button').forEach(b => {
+      if (saveBtns.includes(b.textContent.trim())) b.style.display = 'none';
+    });
+  }, 400);
+})();
