@@ -245,7 +245,8 @@
                  thickness: num(w.thickness, 15), height: h, startHeight: h, endHeight: h, color: '#444444',
                  texture: str(w.texture), interiorTexture: str(w.interiorTexture), exteriorTexture: str(w.exteriorTexture),
                  interiorColor: str(w.interiorColor), exteriorColor: str(w.exteriorColor),
-                 colorL: str(w.colorL), colorR: str(w.colorR) } as any;
+                 colorL: str(w.colorL), colorR: str(w.colorR),
+                 texL: str(w.texL), texR: str(w.texR), finishL: str(w.finishL), finishR: str(w.finishR) } as any;   // 룸핏 묶음 12: 벽 면마다 무늬·마감
       });
       const ids = new Set(f.walls.map(w => w.id));
       f.doors = (src.doors ?? []).filter((d: any) => ids.has(d.wallId)).map((d: any) => ({
@@ -264,7 +265,7 @@
         type: (n.type === 'picture' || n.type === 'fixed' ? 'fixed' : n.type === 'casement' ? 'casement' : n.type === 'quad' || n.type === 'sliding' ? 'sliding' : 'standard') as any,
         rfType: str(n.rfType) ?? str(n.type),   // 룸핏 묶음 9: 앱 창문 종류(작은 창·아치·창살 등) 그대로
         frameColor: typeof n.frameColor === 'string' && n.frameColor ? n.frameColor : undefined,
-        curtainClosed: !!n.curtainClosed } as any));   // 룸핏 묶음 11: 커튼 닫힘
+        curtainClosed: !!n.curtainClosed, curtain: str(n.curtain) } as any));   // 룸핏 묶음 11·12: 커튼 닫힘 · 창마다 커튼
       // 방: 편집기가 벽으로 찾은 방에 사진에서 읽은 방 이름 붙이기. 사진 쪽에 없는 작은 칸(덕트 등)은 바닥 없는 칸으로
       const srcRooms = (src.rooms ?? []).filter((r: any) => Array.isArray(r.points) && r.points.length >= 3);
       const mid = (pts: any[]) => ({ x: pts.reduce((s, q) => s + q.x, 0) / pts.length, y: pts.reduce((s, q) => s + q.y, 0) / pts.length });
