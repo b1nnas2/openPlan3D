@@ -263,7 +263,8 @@
         // 룸핏 묶음 7: 창문 종류(통창 = fixed, 작은 창 = casement)와 창틀 색 그대로
         type: (n.type === 'picture' || n.type === 'fixed' ? 'fixed' : n.type === 'casement' ? 'casement' : n.type === 'quad' || n.type === 'sliding' ? 'sliding' : 'standard') as any,
         rfType: str(n.rfType) ?? str(n.type),   // 룸핏 묶음 9: 앱 창문 종류(작은 창·아치·창살 등) 그대로
-        frameColor: typeof n.frameColor === 'string' && n.frameColor ? n.frameColor : undefined } as any));
+        frameColor: typeof n.frameColor === 'string' && n.frameColor ? n.frameColor : undefined,
+        curtainClosed: !!n.curtainClosed } as any));   // 룸핏 묶음 11: 커튼 닫힘
       // 방: 편집기가 벽으로 찾은 방에 사진에서 읽은 방 이름 붙이기. 사진 쪽에 없는 작은 칸(덕트 등)은 바닥 없는 칸으로
       const srcRooms = (src.rooms ?? []).filter((r: any) => Array.isArray(r.points) && r.points.length >= 3);
       const mid = (pts: any[]) => ({ x: pts.reduce((s, q) => s + q.x, 0) / pts.length, y: pts.reduce((s, q) => s + q.y, 0) / pts.length });
@@ -281,7 +282,8 @@
                           ...(hit.floorTexture ? { floorTexture: String(hit.floorTexture) } : {}),
                           ...(hit.color && hit.color !== '#ffffff' ? { color: String(hit.color) } : {}),   // 룸핏 묶음 7: 바닥재·방 색도
                           wallFinish: str(hit.wallFinish), curtain: str(hit.curtain), molding: !!hit.molding,
-                          lightType: str(hit.lightType), lightColor: str(hit.lightColor) } as any;   // 룸핏 묶음 9: 방 카드 꾸밈
+                          lightType: str(hit.lightType), lightColor: str(hit.lightColor),   // 룸핏 묶음 9: 방 카드 꾸밈
+                          wallTexture: str(hit.wallTexture), ...(hit.floorOpening ? { floorOpening: true } : {}) } as any;   // 룸핏 묶음 11: 벽 무늬 · 지운 바닥
         return room.area < 3 ? { ...room, floorOpening: true } : room;
       });
       await openProject(() => p, 'new', openingLifetime.signal);
