@@ -246,7 +246,7 @@
                  texture: str(w.texture), interiorTexture: str(w.interiorTexture), exteriorTexture: str(w.exteriorTexture),
                  interiorColor: str(w.interiorColor), exteriorColor: str(w.exteriorColor),
                  colorL: str(w.colorL), colorR: str(w.colorR),
-                 texL: str(w.texL), texR: str(w.texR), finishL: str(w.finishL), finishR: str(w.finishR) } as any;   // 룸핏 묶음 12: 벽 면마다 무늬·마감
+                 texL: str(w.texL), texR: str(w.texR), finishL: str(w.finishL), finishR: str(w.finishR), finTexL: str(w.finTexL), finTexR: str(w.finTexR) } as any;   // 룸핏 묶음 12: 벽 면마다 무늬·마감
       });
       const ids = new Set(f.walls.map(w => w.id));
       f.doors = (src.doors ?? []).filter((d: any) => ids.has(d.wallId)).map((d: any) => ({
